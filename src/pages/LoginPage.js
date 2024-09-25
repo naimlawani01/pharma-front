@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { login } from '../services/authService';
+import { login as loginService } from '../services/authService';
 import { useNavigate } from 'react-router-dom';
 import { AuthorizationError } from '../utils/errors'; // Import de l'erreur personnalisée
 
@@ -13,7 +13,8 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const {access_token} = await login({username, password});
+      const {access_token} = await loginService({username, password});
+      login({"token": access_token});
       navigate('/');
     } catch (error) {
         if (error.response && error.response.status === 401) {
