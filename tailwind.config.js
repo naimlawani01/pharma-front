@@ -2,12 +2,18 @@
 module.exports = {
   content: [
     "./src/App.js",
-    "./src/pages/loginPage.js"
+    "./src/pages/loginPage.js",
+    "./src/pages/homePage.js",
+    "./src/components/navbar.js",
+    "./src/utils/logo.js"
 
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 }
-
