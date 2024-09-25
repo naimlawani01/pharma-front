@@ -5,6 +5,7 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [error, setError] = useState(null);
 
     const login = async (credentials) => {
         try {
@@ -21,7 +22,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, logout }}>
+        <AuthContext.Provider value={{ user, login, logout, error }}>
             {children}
         </AuthContext.Provider>
     );
