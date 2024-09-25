@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthorizationError } from '../utils/errors'; // Import de l'erreur personnalisée
 
 const LoginPage = () => {
-  const { login } = useAuth();
+  const { login, error } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -15,16 +15,15 @@ const LoginPage = () => {
     e.preventDefault();
     setLoading(true);
     setErrorMessage(null);
-
     try {
       await login({username, password});
+      navigate('/');  // Rediriger vers la page d'accueil après une connexion réussie
     } catch (error) {
-      if (error instanceof AuthorizationError) {
-        setErrorMessage(error.message); // Message spécifique à l'autorisation
-      } else {
-        setErrorMessage(error.message || 'Erreur lors de la connexion. Veuillez vérifier vos informations.');
-      }
+        console.error(error);
+    } finally {
+        setLoading(false);
     }
+    
   };
 
   return (
@@ -75,9 +74,9 @@ const LoginPage = () => {
             </div>
           </div>
 
-          {errorMessage && (
+          {error && (
             <div className="text-red-500 text-sm">
-              {errorMessage}
+              {error}
             </div>
           )}
 
