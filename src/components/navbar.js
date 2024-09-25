@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { UserIcon } from '@heroicons/react/20/solid'; 
@@ -36,36 +36,34 @@ const Navbar = () => {
           />
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
-          <a
-            href="#"
-            onClick={() => navigate('/products')}
+          <Link
+            to="/products"
             className="text-sm font-semibold leading-6 text-gray-900"
           >
             Nos produits
-          </a>
+          </Link>
           {user ? (
             <>
-              <a
-                href="#"
-                onClick={() => navigate('/orders')}
+              <Link
+                to="/orders"
                 className="text-sm font-semibold leading-6 text-gray-900"
               >
                 Mes Commandes
-              </a>
-              <a
-               onClick={handleLogout}
+              </Link>
+              <button
+                onClick={handleLogout}
                 className="text-sm font-semibold leading-6 text-gray-900"
               >
                 Logout
-              </a>
+              </button>
             </>
           ) : (
-            <a
-              onClick={() => navigate('/login')}
+            <Link
+              to="/login"
               className="text-sm font-semibold leading-6 text-gray-900"
             >
               Login <span aria-hidden="true">&rarr;</span>
-            </a>
+            </Link>
           )}
         </div>
         {user && (
@@ -104,36 +102,34 @@ const Navbar = () => {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                <a
-                  href="#"
-                  onClick={() => navigate('/products')}
+                <Link
+                  to="/products"
                   className="block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Produits
-                </a>
+                </Link>
                 {user && (
-                  <a
-                    href="#"
-                    onClick={() => navigate('/orders')}
+                  <Link
+                    to="/orders"
                     className="block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     Mes Commandes
-                  </a>
+                  </Link>
                 )}
                 {user ? (
-                  <a
+                  <button
                     onClick={handleLogout}
                     className="block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     Logout
-                  </a>
+                  </button>
                 ) : (
-                  <a
-                    onClick={() => navigate('/login')}
+                  <Link
+                    to="/login"
                     className="block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     Login
-                  </a>
+                  </Link>
                 )}
               </div>
             </div>
