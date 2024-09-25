@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
             setError(null);
         } catch (err) {
             setError(err.message);
+            throw err;
         }
     };
 
