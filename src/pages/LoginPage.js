@@ -13,10 +13,7 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const {role} = await login({username, password});
-      if(role !== "simple_user"){
-        throw new AuthorizationError("Accès refusé : l'utilisateur n'a pas la permission.");
-      }
+      const {access_token} = await login({username, password});
       navigate('/');
     } catch (error) {
         if (error.response && error.response.status === 401) {
