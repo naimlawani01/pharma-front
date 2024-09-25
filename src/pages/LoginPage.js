@@ -1,23 +1,20 @@
 import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
-import { AuthorizationError } from '../utils/errors'; // Import de l'erreur personnalisée
 
 const LoginPage = () => {
   const { login, error } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setErrorMessage(null);
     try {
       await login({username, password});
-      navigate('/');  // Rediriger vers la page d'accueil après une connexion réussie
+      navigate('/')
     } catch (error) {
         console.error(error);
     } finally {
