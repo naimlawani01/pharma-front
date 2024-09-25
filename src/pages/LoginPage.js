@@ -1,30 +1,30 @@
 import React, { useState } from 'react';
-import { login as loginService } from '../services/authService';
+import { useAuth } from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { AuthorizationError } from '../utils/errors'; // Import de l'erreur personnalisée
 
 const LoginPage = () => {
+  const { login } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setErrorMessage(null);
 
     try {
-      const {access_token} = await loginService({username, password});
-      login({"token": access_token});
-      navigate('/');
+      await login({username, password});
     } catch (error) {
-        if (error.response && error.response.status === 401) {
-            setError('Mot de passe incorrect. Veuillez vérifier vos informations.');
-        } else if (error instanceof AuthorizationError){
-            setError("Accès refusé : l'utilisateur n'a pas la permission.")
-        } else {
-            setError('Erreur lors de la connexion. Veuillez vérifier vos informations.');
-        }
+      if (error instanceof AuthorizationError) {
+        setErrorMessage(error.message); // Message spécifique à l'autorisation
+      } else {
+        setErrorMessage(error.message || 'Erreur lors de la connexion. Veuillez vérifier vos informations.');
       }
+    }
   };
 
   return (
@@ -75,18 +75,19 @@ const LoginPage = () => {
             </div>
           </div>
 
-          {error && (
+          {errorMessage && (
             <div className="text-red-500 text-sm">
-              {error}
+              {errorMessage}
             </div>
           )}
 
           <div>
             <button
               type="submit"
+              disabled={loading}
               className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-              Sign in
+              {loading ? 'Connexion en cours...' : 'Se connecter'}
             </button>
           </div>
         </form>
