@@ -16,7 +16,7 @@ export const login = async (credentials) => {
       } catch (error) {
         if (error.response && error.response.status === 401) {
           // Mot de passe ou informations incorrectes
-          throw new Error('Mot de passe incorrect. Veuillez vérifier vos informations.');
+          throw new Error('Username ou mot de passe incorrect. Veuillez vérifier vos informations.');
         } else if (error instanceof AuthorizationError) {
           // Erreur d'autorisation
           throw error;
