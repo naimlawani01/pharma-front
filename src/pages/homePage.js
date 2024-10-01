@@ -127,12 +127,11 @@ const HomePage = () => {
 
                     {/* Bouton pour voir les produits */}
                     <button
-                      className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-2 px-4 rounded-full shadow-lg hover:shadow-xl transition-transform transform hover:scale-105"
+                      className="w-auto bg-gradient-to-r from-green-400 to-teal-500 text-white py-1 px-3 rounded-full text-sm shadow-sm hover:shadow-md transition-transform transform"
                       onClick={() => handleViewProducts(pharmacy._id)}
                     >
                       Voir les produits
                     </button>
-
                   </div>
                 </div>
               ))}
