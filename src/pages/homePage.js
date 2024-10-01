@@ -102,7 +102,7 @@ const HomePage = () => {
   return (
     <>
       <Navbar/>
-      <div className='container mx-auto'>
+      <div className='container mx-auto mt-8'>
         <div class="grid grid-cols-3">
           <div className='col-span-2 p-4'>
             <h2 className="text-center text-2xl font-bold mb-8">Pharmacies Disponibles</h2>
