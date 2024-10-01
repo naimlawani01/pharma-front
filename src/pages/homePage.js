@@ -100,100 +100,89 @@ const HomePage = () => {
   };
 
   return (
-    <div className="font-sans">
-      <Navbar />
-      <div className="mt-5"></div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="relative">
-          {userPosition ? (
-            <>
-              <MapContainer
-                center={userPosition}
-                zoom={13}
-                style={mapContainerStyle}
-                ref={mapRef}
-                dragging={!isMobile}
-              >
-                <TileLayer
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  attribution="&copy; OpenStreetMap contributors"
-                />
-                <Marker position={userPosition} icon={userIcon}>
-                  <Popup>Vous êtes ici</Popup>
-                </Marker>
-                {!loading && !error && pharmacies.map((pharmacy, index) => (
-                  <Marker
-                    key={index}
-                    position={[pharmacy.localisation.latitude, pharmacy.localisation.longitude]}
-                    icon={createPharmacyIcon(pharmacy.name)}
-                  >
-                    <Popup>
-                      {pharmacy.name}<br />
-                      {pharmacy.address}
-                    </Popup>
-                  </Marker>
-                ))}
-              </MapContainer>
-              <button
-                onClick={handleCenterOnUser}
-                className="absolute top-2 right-2 bg-white rounded-full p-2 shadow"
-                aria-label="Center on user location"
-              >
-                <MyLocationIcon />
-              </button>
-            </>
-          ) : (
-            <p>Chargement de votre position...</p>
-          )}
-        </div>
+    <>
+      <Navbar/>
+      <div className='container mx-auto'>
+        <div class="grid grid-cols-3">
+          <div className='col-span-2 p-4'>
+            <h2 className="text-center text-2xl font-bold mb-8">Pharmacies Disponibles</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {pharmacies.slice(0, 2).map((pharmacy, index) => (
+                <div
+                  key={index}
+                  className="bg-white overflow-hidden"
+                >
+                  {/* Image de la pharmacie */}
+                  <img
+                    src={getRandomImageUrl()}
+                    alt={`Pharmacy ${pharmacy.name}`}
+                    className="w-full h-48 object-cover"
+                  />
 
-        <div className="p-2">
-          <div className="flex justify-center mb-4">
-            <button
-              onClick={() => navigate('/all-pharmacies')}
-              className="border border-gray-400 text-gray-500 py-2 px-4 rounded hover:bg-gray-200 transition"
-            >
-              Toutes les pharmacies
-            </button>
-          </div>
-          {!loading && !error && pharmacies.map((pharmacy, index) => (
-            <div
-              key={index}
-              className="mb-5 bg-gray-100 rounded-lg flex overflow-hidden shadow-lg"
-            >
-              <div className="flex-shrink-0 w-32 h-32">
-                <img
-                  src={getRandomImageUrl()}
-                  alt="Pharmacy"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-4 flex flex-col justify-between">
-                <div>
-                  <h6 className="font-semibold text-lg truncate">{pharmacy.name}</h6>
-                  <p className="text-gray-700 truncate">{pharmacy.address}</p>
-                  <p className="text-gray-700 truncate">{pharmacy.phone}</p>
+                  {/* Détails de la pharmacie */}
+                  <div className="p-4">
+                    <h3 className="font-semibold text-lg mb-2">{pharmacy.name}</h3>
+                    <p className="text-gray-700 mb-1">{pharmacy.address}</p>
+                    <p className="text-gray-700 mb-4">{pharmacy.phone}</p>
+
+                    {/* Bouton pour voir les produits */}
+                    <button
+                      className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-2 px-4 rounded-full shadow-lg hover:shadow-xl transition-transform transform hover:scale-105"
+                      onClick={() => handleViewProducts(pharmacy._id)}
+                    >
+                      Voir les produits
+                    </button>
+
+                  </div>
                 </div>
-                <div className="flex items-center mt-2">
-                  <button
-                    className="border border-gray-400 text-gray-500 py-1 px-2 rounded hover:bg-gray-200 transition mr-2"
-                    onClick={() => handleViewProducts(pharmacy._id)}
-                  >
-                    Voir tous les produits
-                  </button>
-                  <button
-                    className="relative text-gray-500 hover:text-black"
-                    onClick={() => setSelectedPharmacy(pharmacy)}
-                  >
-                    <MoreVertIcon />
-                  </button>
-                </div>
-              </div>
+              ))}
             </div>
-          ))}
+          </div>
+          <div className="relative">
+            {userPosition ? (
+              <>
+                <MapContainer
+                  center={userPosition}
+                  zoom={13}
+                  style={mapContainerStyle}
+                  ref={mapRef}
+                  dragging={!isMobile}
+                >
+                  <TileLayer
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    attribution="&copy; OpenStreetMap contributors"
+                  />
+                  <Marker position={userPosition} icon={userIcon}>
+                    <Popup>Vous êtes ici</Popup>
+                  </Marker>
+                  {!loading && !error && pharmacies.map((pharmacy, index) => (
+                    <Marker
+                      key={index}
+                      position={[pharmacy.localisation.latitude, pharmacy.localisation.longitude]}
+                      icon={createPharmacyIcon(pharmacy.name)}
+                    >
+                      <Popup>
+                        {pharmacy.name}<br />
+                        {pharmacy.address}
+                      </Popup>
+                    </Marker>
+                  ))}
+                </MapContainer>
+                <button
+                  onClick={handleCenterOnUser}
+                  className="absolute top-2 right-2 bg-white rounded-full p-2 shadow"
+                  aria-label="Center on user location"
+                >
+                  <MyLocationIcon />
+                </button>
+              </>
+            ) : (
+              <p>Chargement de votre position...</p>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
