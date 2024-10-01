@@ -5,7 +5,8 @@ module.exports = {
     "./src/pages/loginPage.js",
     "./src/pages/homePage.js",
     "./src/components/navbar.js",
-    "./src/utils/logo.js"
+    "./src/utils/logo.js",
+    "./src/pages/productInPharmaciePage.js"
 
   ],
   theme: {

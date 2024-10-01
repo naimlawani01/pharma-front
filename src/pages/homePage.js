@@ -8,7 +8,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import GetPharmacies from '../services/getPharmacies';
+import GetPharmacies from '../services/pharamciesService';
 
 const HomePage = () => {
   const { pharmacies, loading, error } = GetPharmacies(); 
