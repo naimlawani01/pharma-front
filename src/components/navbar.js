@@ -17,7 +17,7 @@ const Navbar = () => {
   };
 
   return (
-    <header>
+    <header className='shadow-sm'>
       {/* Première petite barre verte */}
       <div className="bg-green-900 h-8 flex items-center justify-center">
         <p className="text-white text-xs"></p>
