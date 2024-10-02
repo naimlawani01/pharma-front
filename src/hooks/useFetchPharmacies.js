@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import getPharmacies from '../services/getPharmacies';
+import getPharmacies from '../services/pharamciesService';
 
 export const useFetchPharmacies = () => {
     const [pharmacies, setPharmacies] = useState([]);
