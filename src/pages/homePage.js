@@ -65,7 +65,7 @@ const HomePage = () => {
       <div className="container mx-auto mt-8">
         <div className="grid grid-cols-3">
           <div className="col-span-2 p-4">
-            <h2 className="text-center text-2xl font-bold mb-8">Pharmacies Disponibles</h2>
+            <h2 className=" text-3xl font-extralight mb-8 mt-5">Pharmacies Disponibles</h2>
             
             {/* Gestion de l'état de chargement */}
             {isLoading ? (
