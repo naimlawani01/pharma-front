@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes} from 'react-router-dom';
-import LoginPage from '../pages/loginPage'
+import LoginPage from '../pages/LoginPage'
 import HomePage from '../pages/homePage';
 import ProductsInPharmacie from '../pages/productInPharmaciePage';
 import AllProducts from '../pages/allProductsPage';
@@ -15,11 +15,7 @@ const AppRoutes = ()=> {
         <Route path="/" element={<HomePage />} />
         <Route path = "/list-product/:id" element ={<ProductsInPharmacie />} />
         <Route path = "/all-products" element={<AllProducts/>} />
-
-       
-
-
-        </Routes>
+      </Routes>
 
 );
 }
