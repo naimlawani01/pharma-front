@@ -23,19 +23,21 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex min-h-full">
-    <div className="flex-1 flex items-center justify-center px-6 py-12 lg:px-8">
-      <div className="mt-40 sm:mx-auto sm:w-full sm:max-w-sm"> {/* Ajout de mt-20 pour plus d'espace en haut */}
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-              Sign in to your account
+    <div className="flex min-h-screen">
+      {/* Colonne gauche : formulaire de connexion */}
+      <div className="flex-1 flex items-center justify-center px-6 py-12 lg:px-8">
+        <div className="mt-12 sm:mx-auto sm:w-full sm:max-w-md">
+          <div className="sm:mx-auto sm:w-full sm:max-w-md">
+            <h2 className="mt-10 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
+              Connectez-vous à votre compte
             </h2>
           </div>
-          
-          <form onSubmit={handleSubmit} className="space-y-6">
+
+          <form onSubmit={handleSubmit} className="space-y-6 mt-8">
+            {/* Champ Username */}
             <div>
-              <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
-                Username
+              <label htmlFor="username" className="block text-sm font-medium text-gray-900">
+                Nom d'utilisateur
               </label>
               <div className="mt-2">
                 <input
@@ -46,17 +48,16 @@ const LoginPage = () => {
                   onChange={(e) => setUsername(e.target.value)}
                   required
                   autoComplete="username"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm"
                 />
               </div>
             </div>
 
+            {/* Champ Mot de Passe */}
             <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                  Password
-                </label>
-              </div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-900">
+                Mot de passe
+              </label>
               <div className="mt-2">
                 <input
                   id="password"
@@ -66,22 +67,20 @@ const LoginPage = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   autoComplete="current-password"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm"
                 />
               </div>
             </div>
 
-            {error && (
-              <div className="text-red-500 text-sm">
-                {error}
-              </div>
-            )}
+            {/* Affichage des erreurs */}
+            {error && <div className="text-red-500 text-sm">{error}</div>}
 
+            {/* Bouton de connexion */}
             <div>
               <button
                 type="submit"
                 disabled={loading}
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="w-full py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
                 {loading ? 'Connexion en cours...' : 'Se connecter'}
               </button>
@@ -90,15 +89,14 @@ const LoginPage = () => {
         </div>
       </div>
 
-      {/* Image à droite de la page */}
+      {/* Colonne droite : image */}
       <div className="hidden lg:block flex-1">
-      <img 
-        src="https://media.istockphoto.com/id/1063754390/fr/vectoriel/vecteur-dun-patient-%C3%A0-un-m%C3%A9decin-en-ligne-en-utilisant-une-technologie-de-smartphone-de.jpg?s=612x612&w=0&k=20&c=WDraPZqF_dtY_UieYRip_lOJIGXDXY-f6zZloag-3G8="
-        alt="Login illustration" 
-        className="h-full  object-cover" 
-      />
-    </div>
-
+        <img
+          src="https://images.unsplash.com/photo-1622230208995-0f26eba75875?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Remplacez par l'URL de votre image
+          alt="Login illustration"
+          className="w-full h-full object-cover"
+        />
+      </div>
     </div>
   );
 };
