@@ -38,5 +38,14 @@ const useProductsService = () => {
 
   return { products, allProducts };
 };
-
+export const searchProducts = async (query) => {
+  try {
+    const response = await api.get(`/products?search=${query}`);
+    console.log(response.data)
+    return response.data;
+  } catch (error) {
+    console.error('Erreur lors de la recherche de produits:', error);
+    throw error;
+  }
+};
 export default useProductsService;
