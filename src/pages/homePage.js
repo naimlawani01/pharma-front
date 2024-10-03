@@ -5,15 +5,12 @@ import Map from '../components/Map/Map';
 import PharmacyList from '../components/PharmacyList/PharmacyList';
 import { useFetchPharmacies } from '../hooks/useFetchPharmacies';
 import { useUserPosition } from '../hooks/useUserPosition';
-import userIconImage from '../assets/marker.png';
-import pharmacyIconImage from '../assets/placeholder.png';
-import L from 'leaflet';
 
 const HomePage = () => {
   const { pharmacies, isLoading, error } = useFetchPharmacies();
   const { userPosition } = useUserPosition();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
-  const mapRef = useRef(null);
+  const mapRef = useRef(null);  // Référence pour la carte
   const navigate = useNavigate();
 
   const imgUrl = [
@@ -31,27 +28,12 @@ const HomePage = () => {
     navigate(`/list-product/${pharmacyId}`);
   };
 
-  const userIcon = L.divIcon({
-    className: 'custom-user-icon',
-    html: `<div style="display: flex; align-items: center;">
-             <img src="${userIconImage}" style="width: 38px; height: 38px;" />
-             <span style="margin-left: 5px; background-color: white; padding: 2px;">Vous êtes ici</span>
-           </div>`,
-    iconSize: [38, 38],
-    iconAnchor: [19, 38],
-    popupAnchor: [0, -38],
-  });
-
-  const createPharmacyIcon = (pharmacyName) => L.divIcon({
-    className: 'custom-pharmacy-icon',
-    html: `<div style="display: flex; align-items: center;">
-             <img src="${pharmacyIconImage}" style="width: 38px; height: 38px;" />
-             <span style="margin-left: 5px; background-color: white; padding: 2px;">${pharmacyName}</span>
-           </div>`,
-    iconSize: [38, 38],
-    iconAnchor: [19, 38],
-    popupAnchor: [0, -38],
-  });
+  // Fonction pour recentrer la carte sur une pharmacie
+  const handleFlyToPharmacy = (latitude, longitude) => {
+    if (mapRef.current) {
+      mapRef.current.flyTo([latitude, longitude], 13); // Repositionne la carte sur les coordonnées de la pharmacie
+    }
+  };
 
   const handleCenterOnUser = () => {
     if (userPosition && mapRef.current) {
@@ -65,23 +47,16 @@ const HomePage = () => {
       <div className="container mx-auto mt-8">
         <div className="grid grid-cols-3">
           <div className="col-span-2 p-4">
-            <h2 className=" text-3xl font-extralight mb-8 mt-5">Pharmacies Disponibles</h2>
-            
-            {/* Gestion de l'état de chargement */}
-            {isLoading ? (
-              <div className="text-center">Chargement des pharmacies...</div>
-            ) : error ? (
-              <div className="text-center text-red-500">Erreur lors du chargement des pharmacies</div>
-            ) : (
+            <h2 className="text-left text-3xl font-bold mb-8">Pharmacies Disponibles</h2>
               <PharmacyList
                 pharmacies={pharmacies}
                 handleViewProducts={handleViewProducts}
+                handleFlyToPharmacy={handleFlyToPharmacy}
                 getRandomImageUrl={getRandomImageUrl}
+                isLoading={isLoading} // Passer isLoading à PharmacyList
               />
-            )}
           </div>
 
-          {/* N'affiche la carte que si les pharmacies sont chargées */}
           {!isLoading && !error && (
             <div className="relative">
               <Map
@@ -89,8 +64,6 @@ const HomePage = () => {
                 pharmacies={pharmacies}
                 mapRef={mapRef}
                 isMobile={isMobile}
-                createPharmacyIcon={createPharmacyIcon}
-                userIcon={userIcon}
                 handleCenterOnUser={handleCenterOnUser}
               />
             </div>
