@@ -24,6 +24,17 @@ export const fetchAllProducts = async () => {
   }
 };
 
+
+// Fonction pour récupérer un produit
+export const fetchProductById = async (productId) => {
+  try {
+    const response = await api.get(`/products/${productId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Erreur lors du chargement de tous les produits:', error);
+    throw error;
+  }
+};
 // Fonction pour rechercher un produit 
 export const searchProducts = async (query) => {
   try {
