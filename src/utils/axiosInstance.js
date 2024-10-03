@@ -1,10 +1,8 @@
 // utils/axiosInstance.js
 import axios from 'axios';
-import { getApiBaseUrl } from './apiConfig';
 
 const api = axios.create({
-  baseURL: getApiBaseUrl(),   // URL de base définie dans apiConfig.js
-  timeout: 10000,             // Temps d'attente maximal pour une requête
+  baseURL: 'https://back-pharmacie.onrender.com',   // URL de base définie dans apiConfig.js
   
 });
 
