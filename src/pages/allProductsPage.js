@@ -1,9 +1,11 @@
 import React from 'react';
 import Navbar from '../components/navbar';
-import useProductsService from '../services/productsService';
+import {useFetchAllProducts} from '../hooks/useFecthProducts'
 
 const AllProducts = () => {
-  const { allProducts } = useProductsService();  
+  const { allProducts, isLoading, error } = useFetchAllProducts();  
+
+ 
 
   return (
     <div>
@@ -21,12 +23,15 @@ const AllProducts = () => {
               <p className="text-gray-500 mt-2">
                 {product.description}
               </p>
-              {/* <p className="text-black mt-4">
+              {/* Si tu veux ajouter d'autres détails comme le prix et la pharmacie */}
+              {/* 
+              <p className="text-black mt-4">
                 Prix : {product.price} €
               </p>
               <p className="text-gray-600 mt-2">
                 Disponible à la pharmacie : <span className="font-semibold">{product.pharmacy.name}</span>
-              </p> */}
+              </p> 
+              */}
             </div>
           ))
         ) : (
