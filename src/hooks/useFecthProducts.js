@@ -42,7 +42,7 @@ export const useFetchProductById = (productId) => {
       };
   
       getProductById();
-    }, [productId]);
+    }, [productId, product]);
   
     return { product, error, isLoading };
   };
