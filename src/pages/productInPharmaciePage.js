@@ -1,15 +1,17 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/navbar';
-import useProductsInPharmacies from "../services/productsService"; 
+import {useFetchProductsInPharmacy} from '../hooks/useFecthProductInPharmacy'
 
 const ProductsInPharmacie = () => {
-  const products = useProductsInPharmacies(); 
+  const { products, isLoading, error } = useFetchProductsInPharmacy();  
   const navigate = useNavigate();
 
   const handleNavigate = (productInPharmacy) => {
-    navigate(`/commandes`);
+    navigate(`/commandes`);  
   };
+
+
 
   return (
     <div>

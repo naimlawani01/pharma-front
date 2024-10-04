@@ -1,43 +1,41 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+
 import api from '../utils/axiosInstance';
 
-const useProductsService = () => {
-  const { id } = useParams(); 
-  const [products, setProducts] = useState([]);
-  const [allProducts, setAllProducts] = useState([]);
 
-  // Fonction pour récupérer les produits d'une pharmacie spécifique
-  useEffect(() => {
-    const fetchProductsInPharmacy = async () => {
-      if (!id) return;  // Vérifie si l'ID est présent avant de faire l'appel
-      try {
-        const response = await api.get(`/pharmacies/${id}/products`);
-        setProducts(response.data);
-      } catch (error) {
-        console.error('Erreur lors du chargement des produits de la pharmacie:', error);
-      }
-    };
-
-    fetchProductsInPharmacy();  
-  }, [id]);  
-
-  // Fonction pour récupérer tous les produits dans toutes les pharmacies
-  useEffect(() => {
-    const fetchAllProducts = async () => {
-      try {
-        const response = await api.get('/products');
-        setAllProducts(response.data);  
-      } catch (error) {
-        console.error('Erreur lors du chargement de tous les produits:', error);
-      }
-    };
-
-    fetchAllProducts();  
-  }, []);  
-
-  return { products, allProducts };
+// Fonction pour récupérer les produits d'une pharmacie 
+export const fetchProductsInPharmacy = async (pharmacyId) => {
+  try {
+    const response = await api.get(`/pharmacies/${pharmacyId}/products`);
+    return response.data;
+  } catch (error) {
+    console.error('Erreur lors du chargement des produits de la pharmacie:', error);
+    throw error;
+  }
 };
+
+// Fonction pour récupérer tous les produits de toutes les pharmacies
+export const fetchAllProducts = async () => {
+  try {
+    const response = await api.get('/products');
+    return response.data;
+  } catch (error) {
+    console.error('Erreur lors du chargement de tous les produits:', error);
+    throw error;
+  }
+};
+
+
+// Fonction pour récupérer un produit
+export const fetchProductById = async (productId) => {
+  try {
+    const response = await api.get(`/products/${productId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Erreur lors du chargement de tous les produits:', error);
+    throw error;
+  }
+};
+// Fonction pour rechercher un produit 
 export const searchProducts = async (query) => {
   try {
     const response = await api.get(`/products?search=${query}`);
@@ -48,4 +46,3 @@ export const searchProducts = async (query) => {
     throw error;
   }
 };
-export default useProductsService;
