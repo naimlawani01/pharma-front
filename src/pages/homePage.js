@@ -28,6 +28,10 @@ const HomePage = () => {
     navigate(`/list-product/${pharmacyId}`);
   };
 
+  const handleViewDetails = (pharmacyId) => {
+    navigate(`/pharmacy-details/${pharmacyId}`);
+  };
+
   // Fonction pour recentrer la carte sur une pharmacie
   const handleFlyToPharmacy = (latitude, longitude) => {
     if (mapRef.current) {
@@ -51,6 +55,7 @@ const HomePage = () => {
               <PharmacyList
                 pharmacies={pharmacies}
                 handleViewProducts={handleViewProducts}
+                handleViewDetails= {handleViewDetails}
                 handleFlyToPharmacy={handleFlyToPharmacy}
                 getRandomImageUrl={getRandomImageUrl}
                 isLoading={isLoading} // Passer isLoading à PharmacyList

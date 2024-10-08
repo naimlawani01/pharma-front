@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fetchProductsInPharmacy } from '../services/productsService';
+import { fetchProductsInPharmacy } from '../services/pharmaciesService';
 
 export const useFetchProductsInPharmacy = (pharmacyId) => {
   const [products, setProducts] = useState([]);
