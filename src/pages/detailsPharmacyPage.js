@@ -22,6 +22,18 @@ const PharmacyDetails = () => {
         {pharmacy ? (
           <>
             <h1 className="text-2xl font-bold mb-4">{pharmacy.name}</h1>
+
+            {/* Affichage de l'image de la pharmacie */}
+            {pharmacy.img ? (
+              <img 
+                src={pharmacy.img} 
+                alt={`la pharmacie ${pharmacy.name}`} 
+                className="w-full h-auto mb-4 rounded-md"
+              />
+            ) : (
+              <p className="text-gray-700 mb-2">Image non disponible</p>
+            )}
+
             <p className="text-gray-700 mb-2">Adresse: {pharmacy.address}</p>
             <p className="text-gray-700 mb-2">Téléphone: {pharmacy.phone}</p>
             <p className="text-gray-700 mb-2">Email: {pharmacy.email}</p>

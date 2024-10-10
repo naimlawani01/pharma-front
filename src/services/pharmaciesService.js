@@ -1,18 +1,19 @@
 import api from '../utils/axiosInstance';
 
-const getPharmacies = async() => {
+export const getPharmacies = async() => {
 
   const response = await api.get('/pharmacies');
+  console.log('jk')
   return response.data
 };
 
-export default getPharmacies;
 
 
 // Fonction pour récupérer les produits d'une pharmacie 
 export const fetchProductsInPharmacy = async (pharmacyId) => {
   try {
     const response = await api.get(`/pharmacies/${pharmacyId}/products`);
+    console.log(response.data)
     return response.data;
   } catch (error) {
     console.error('Erreur lors du chargement des produits de la pharmacie:', error);
@@ -21,8 +22,9 @@ export const fetchProductsInPharmacy = async (pharmacyId) => {
 };
 
 export const getPharmacyDetails = async (pharmacyId)=> {
-  try{ 
+  try{
     const response = await api.get(`/pharmacies/${pharmacyId}`);
+    console.log(response.data)
     return response.data;
   } catch (error) {
     console.error ('Erreur lors du chargement des détails de la pharmacies')
