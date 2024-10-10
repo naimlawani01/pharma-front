@@ -2,17 +2,6 @@
 import api from '../utils/axiosInstance';
 
 
-// Fonction pour récupérer les produits d'une pharmacie 
-export const fetchProductsInPharmacy = async (pharmacyId) => {
-  try {
-    const response = await api.get(`/pharmacies/${pharmacyId}/products`);
-    return response.data;
-  } catch (error) {
-    console.error('Erreur lors du chargement des produits de la pharmacie:', error);
-    throw error;
-  }
-};
-
 // Fonction pour récupérer tous les produits de toutes les pharmacies
 export const fetchAllProducts = async () => {
   try {
