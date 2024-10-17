@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Dialog, DialogPanel } from '@headlessui/react';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, XMarkIcon, ShoppingCartIcon } from '@heroicons/react/24/outline'; // Import de l'icône panier
 import { UserIcon } from '@heroicons/react/20/solid';
 import { useAuth } from '../hooks/useAuth';
 import { useSearchProducts } from '../hooks/useSearchProducts'; // Import du hook personnalisé
@@ -67,6 +67,17 @@ const Navbar = () => {
           <Link to="/all-products" className="text-sm font-semibold leading-6 text-gray-900">
             Nos produits
           </Link>
+
+          {/* Ajout de l'icône du panier pour les utilisateurs connectés */}
+          {user && (
+            <div className="flex items-center space-x-4">
+              <Link to="/cart" className="flex items-center space-x-2">
+                <ShoppingCartIcon className="h-6 w-6 text-gray-900" />
+                <span className="text-sm font-semibold leading-6 text-gray-900">Mon Panier</span>
+              </Link>
+            </div>
+          )}
+
           {user ? (
             <>
               <Link to="/orders" className="text-sm font-semibold leading-6 text-gray-900">
@@ -85,11 +96,13 @@ const Navbar = () => {
             </Link>
           )}
         </div>
+        
         {user && (
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <UserIcon onClick={() => navigate('/profile')} className="h-6 w-6 cursor-pointer text-gray-900" />
           </div>
         )}
+
         <div className="lg:hidden">
           <button
             type="button"
