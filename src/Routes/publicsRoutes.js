@@ -6,6 +6,7 @@ import ProductsInPharmacie from '../pages/productInPharmaciePage';
 import AllProducts from '../pages/allProductsPage';
 import ProductDetailPage from '../pages/productDetailPage';
 import CartPage from '../pages/cartPage'
+import PharmacyDetails from '../pages/detailsPharmacyPage';
 
 
 const AppRoutes = ()=> {
@@ -19,6 +20,7 @@ const AppRoutes = ()=> {
         <Route path = "/all-products" element={<AllProducts/>} />
         <Route path = "/cart" element={<CartPage/>} />
         <Route path="/product/:productId" element={<ProductDetailPage />} />
+        <Route path="/pharmacy-details/:pharmacyId" element={<PharmacyDetails />} />
       </Routes>
 
 );

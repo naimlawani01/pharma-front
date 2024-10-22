@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PharmacyCard = ({ pharmacy, handleViewProducts, getRandomImageUrl, handleFlyToPharmacy }) => {
+const PharmacyCard = ({ pharmacy, handleViewProducts, getRandomImageUrl, handleFlyToPharmacy, handleViewDetails }) => {
   return (
     <div
       className="bg-white overflow-hidden rounded-sm shadow-sm cursor-pointer"
@@ -16,15 +16,30 @@ const PharmacyCard = ({ pharmacy, handleViewProducts, getRandomImageUrl, handleF
         <p className="text-gray-700 mb-1">{pharmacy.address}</p>
         <p className="text-gray-700 mb-4">{pharmacy.phone}</p>
 
-        <button
-          className="w-auto bg-gradient-to-r from-green-400 to-teal-500 text-white py-1 px-3 rounded-full text-sm shadow-sm hover:shadow-md transition-transform transform"
-          onClick={(e) => {
-            e.stopPropagation(); // Empêche la propagation de l'événement de clic
-            handleViewProducts(pharmacy._id);
-          }}
-        >
-          Voir les produits
-        </button>
+       
+        <div className="flex space-x-2">
+          
+          <button
+            className="w-auto bg-gradient-to-r from-green-400 to-teal-500 text-white py-1 px-3 rounded-full text-sm shadow-sm hover:shadow-md transition-transform transform"
+            onClick={(e) => {
+              e.stopPropagation(); // Empêche la propagation de l'événement de clic
+              handleViewProducts(pharmacy._id);
+            }}
+          >
+            Voir les produits
+          </button>
+
+          {/* Bouton Voir les détails */}
+          <button
+            className="w-auto bg-gradient-to-r from-blue-400 to-blue-500 text-white py-1 px-3 rounded-full text-sm shadow-sm hover:shadow-md transition-transform transform"
+            onClick={(e) => {
+              e.stopPropagation(); // Empêche la propagation de l'événement de clic
+              handleViewDetails(pharmacy._id);
+            }}
+          >
+            Voir les détails
+          </button>
+        </div>
       </div>
     </div>
   );
