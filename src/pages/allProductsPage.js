@@ -1,11 +1,34 @@
 import React from 'react';
 import Navbar from '../components/navbar';
-import {useFetchAllProducts} from '../hooks/useFecthProducts'
+import { useFetchAllProducts } from '../hooks/useFecthProducts';
+import { FaShoppingCart } from 'react-icons/fa';
+import { useCart } from '../context/cartContext';
+import { useAuth } from '../hooks/useAuth'; // Hook pour gérer l'authentification
+import { useNavigate } from 'react-router-dom'; // Pour rediriger l'utilisateur
 
 const AllProducts = () => {
-  const { allProducts, isLoading, error } = useFetchAllProducts();  
+  const { allProducts, isLoading, error } = useFetchAllProducts();
+  const { addToCart } = useCart(); // Utilisation du hook pour le panier
+  const { user } = useAuth(); // Vérifie si l'utilisateur est connecté
+  const navigate = useNavigate(); // Pour redirection
 
- 
+  const handleAddToCart = (product) => {
+    if (user) {
+      // Si l'utilisateur est connecté, ajouter au panier
+      addToCart(product);
+    } else {
+      // Si l'utilisateur n'est pas connecté, redirection vers la page de login
+      navigate('/login');
+    }
+  };
+
+  if (isLoading) {
+    return <p>Chargement des produits...</p>;
+  }
+
+  if (error) {
+    return <p>Erreur lors du chargement des produits.</p>;
+  }
 
   return (
     <div>
@@ -23,15 +46,14 @@ const AllProducts = () => {
               <p className="text-gray-500 mt-2">
                 {product.description}
               </p>
-              {/* Si tu veux ajouter d'autres détails comme le prix et la pharmacie */}
-              {/* 
-              <p className="text-black mt-4">
-                Prix : {product.price} €
-              </p>
-              <p className="text-gray-600 mt-2">
-                Disponible à la pharmacie : <span className="font-semibold">{product.pharmacy.name}</span>
-              </p> 
-              */}
+
+              <div
+                className="mt-4 text-green-500 cursor-pointer flex items-center"
+                onClick={() => handleAddToCart(product)} // Utilisation de la fonction conditionnelle
+              >
+                <FaShoppingCart className="mr-2" />
+                <span>Ajouter au panier</span>
+              </div>
             </div>
           ))
         ) : (
