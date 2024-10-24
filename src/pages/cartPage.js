@@ -22,7 +22,7 @@ const CartPage = () => {
             </div>
           ))
         ) : (
-          <p>Aucun produit dans le panier.</p>
+          <p>Aucun produit dans le panier</p>
         )}
       </div>
     </div>
