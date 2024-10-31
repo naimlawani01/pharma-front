@@ -3,23 +3,15 @@ import Navbar from '../components/navbar';
 import { useFetchAllProducts } from '../hooks/useFecthProducts';
 import { FaShoppingCart } from 'react-icons/fa';
 import { useCart } from '../context/cartContext';
-import { useAuth } from '../hooks/useAuth'; // Hook pour gérer l'authentification
-import { useNavigate } from 'react-router-dom'; // Pour rediriger l'utilisateur
+
 
 const AllProducts = () => {
   const { allProducts, isLoading, error } = useFetchAllProducts();
   const { addToCart } = useCart(); // Utilisation du hook pour le panier
-  const { user } = useAuth(); // Vérifie si l'utilisateur est connecté
-  const navigate = useNavigate(); // Pour redirection
+ 
 
   const handleAddToCart = (product) => {
-    if (user) {
-      // Si l'utilisateur est connecté, ajouter au panier
-      addToCart(product);
-    } else {
-      // Si l'utilisateur n'est pas connecté, redirection vers la page de login
-      navigate('/login');
-    }
+    addToCart(product); // Ajout direct au panier, sans vérification de connexion
   };
 
   if (isLoading) {
@@ -33,32 +25,48 @@ const AllProducts = () => {
   return (
     <div>
       <Navbar />
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-5 p-4">
-        {allProducts.length > 0 ? (
-          allProducts.map((product, index) => (
-            <div
-              key={index}
-              className="bg-gray-50 rounded-lg shadow-md p-5 transition-transform transform hover:scale-105"
-            >
-              <h2 className="text-lg font-bold text-gray-800">
-                {product.name}
-              </h2>
-              <p className="text-gray-500 mt-2">
-                {product.description}
-              </p>
-
+      <div className="container mx-auto p-6">
+        <h1 className="text-2xl font-bold text-gray-800 mb-4">Tous les Produits</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {allProducts.length > 0 ? (
+            allProducts.map((product, index) => (
               <div
-                className="mt-4 text-green-500 cursor-pointer flex items-center"
-                onClick={() => handleAddToCart(product)} // Utilisation de la fonction conditionnelle
+                key={index}
+                className="bg-white rounded-lg shadow-md p-5 transition-transform transform hover:scale-105"
               >
-                <FaShoppingCart className="mr-2" />
-                <span>Ajouter au panier</span>
+                <img
+                  src={product.img || 'https://media.istockphoto.com/id/1465073112/fr/photo/capsules-bleues-sur-convoyeur-dans-une-usine-pharmaceutique-moderne-processus-de-fabrication.webp?s=1024x1024&w=is&k=20&c=4UmTp1KXgISND5-pMjhwtOTmE3VCSZ10gQrMbJr9-Uk='}
+                  alt={product.name}
+                  className="w-full h-48 object-cover mb-4 rounded"
+                />
+                <h2 className="text-lg font-bold text-gray-800 mb-2">{product.name}</h2>
+                <p className="text-gray-600 mb-4">{product.description}</p>
+                <p className="text-green-500 font-semibold text-lg mb-4">€{product.price || 'XX'}</p>
+
+                <div className="flex items-center mb-4">
+                  <label className="text-gray-600 mr-2">Quantité:</label>
+                  <input
+                    type="number"
+                    min="1"
+                    defaultValue="1"
+                    className="w-16 border rounded text-center"
+                    onChange={(e) => (product.quantity = parseInt(e.target.value))}
+                  />
+                </div>
+
+                <button
+                  onClick={() => handleAddToCart(product, product.quantity || 1)}
+                  className="flex items-center justify-center w-full bg-indigo-600 text-white font-bold py-2 rounded hover:bg-indigo-700"
+                >
+                  <FaShoppingCart className="mr-2" />
+                  Ajouter au panier
+                </button>
               </div>
-            </div>
-          ))
-        ) : (
-          <p className="text-center text-gray-500">Aucun produit disponible pour le moment.</p>
-        )}
+            ))
+          ) : (
+            <p className="text-center text-gray-500">Aucun produit disponible pour le moment.</p>
+          )}
+        </div>
       </div>
     </div>
   );

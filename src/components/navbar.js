@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Dialog, DialogPanel } from '@headlessui/react';
-import { Bars3Icon, XMarkIcon, ShoppingCartIcon } from '@heroicons/react/24/outline'; // Import de l'icône panier
+import { Bars3Icon, XMarkIcon, ShoppingCartIcon } from '@heroicons/react/24/outline'; 
 import { UserIcon } from '@heroicons/react/20/solid';
 import { useAuth } from '../hooks/useAuth';
-import { useSearchProducts } from '../hooks/useSearchProducts'; // Import du hook personnalisé
+import { useSearchProducts } from '../hooks/useSearchProducts'; 
 import { Logo } from '../utils/logo';
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { query, setQuery, suggestions, isLoading } = useSearchProducts(); // Utilisation du hook
+  const { query, setQuery, suggestions, isLoading } = useSearchProducts(); 
   const navigate = useNavigate();
   const { user, logout } = useAuth();
 
@@ -20,30 +20,25 @@ const Navbar = () => {
 
   return (
     <header className="shadow-sm">
-      {/* Première petite barre verte */}
       <div className="bg-green-900 h-8 flex items-center justify-center">
         <p className="text-white text-xs"></p>
       </div>
 
-      {/* TopBar principale */}
       <nav aria-label="Global" className="bg-white mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
         <div className="flex lg:flex-1">
           <Logo />
         </div>
 
-        {/* Search bar */}
         <div className="hidden lg:flex lg:flex-1 lg:justify-center relative">
           <input
             type="text"
             placeholder="Search..."
             value={query}
-            onChange={(e) => setQuery(e.target.value)} // Mise à jour de la query
-            className="border rounded-lg px-3 py-2 text-sm w-full max-w-xs relative z-10" // Ajout de z-10 pour forcer l'input à rester au-dessus
+            onChange={(e) => setQuery(e.target.value)}
+            className="border rounded-lg px-3 py-2 text-sm w-full max-w-xs relative z-10"
           />
-
-          {/* Suggestions dropdown */}
           {query && (
-            <div className="mt-8 absolute bg-white border rounded-lg shadow-lg mt-2 w-full max-w-xs z-20">
+            <div className="absolute bg-white border rounded-lg shadow-lg mt-2 w-full max-w-xs z-20">
               {isLoading ? (
                 <div className="p-2 text-sm text-gray-500">Loading...</div>
               ) : suggestions.length > 0 ? (
@@ -68,15 +63,12 @@ const Navbar = () => {
             Nos produits
           </Link>
 
-          {/* Ajout de l'icône du panier pour les utilisateurs connectés */}
-          {user && (
-            <div className="flex items-center space-x-4">
-              <Link to="/cart" className="flex items-center space-x-2">
-                <ShoppingCartIcon className="h-6 w-6 text-gray-900" />
-                <span className="text-sm font-semibold leading-6 text-gray-900">Mon Panier</span>
-              </Link>
-            </div>
-          )}
+          <div className="flex items-center space-x-4">
+            <Link to="/cart" className="flex items-center space-x-2">
+              <ShoppingCartIcon className="h-6 w-6 text-gray-900" />
+              <span className="text-sm font-semibold leading-6 text-gray-900">Mon Panier</span>
+            </Link>
+          </div>
 
           {user ? (
             <>
@@ -114,7 +106,6 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile menu */}
       <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
         <div className="fixed inset-0 z-10" />
         <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
@@ -129,6 +120,9 @@ const Navbar = () => {
               <div className="space-y-2 py-6">
                 <Link to="/all-products" className="block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
                   Produits
+                </Link>
+                <Link to="/cart" className="block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+                  Mon Panier
                 </Link>
                 {user && (
                   <Link to="/orders" className="block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
