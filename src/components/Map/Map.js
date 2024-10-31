@@ -119,7 +119,7 @@ const Map = ({ userPosition, pharmacies, mapRef, isMobile, handleFlyToPharmacy }
   `;
 
   return (
-    <div style={{ position: 'relative', height: isMobile ? '40vh' : '80vh', width: '100%' }}>
+    <div style={{ position: 'relative', height: isMobile ? '40vh' : '50vh', width: '100%' }}>
       <div ref={mapContainer} style={{ height: '100%', width: '100%' }} />
     </div>
   );

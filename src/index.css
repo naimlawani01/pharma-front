@@ -29,3 +29,9 @@ code {
 .mapboxgl-ctrl:hover {
   transform: scale(1.05);
 }
+
+
+.pharmacy-card {
+  margin: 10px; /* Espacement entre les cartes */
+  width: 200px; /* Largeur fixe pour chaque carte */
+}
