@@ -8,7 +8,8 @@ export const login = async (credentials) => {
               'Content-Type': 'application/x-www-form-urlencoded',
             },
         });
-        if (response.data.role !== "simple_user") {
+        console.log(response.data);
+        if (response.data.role !== "customer") {
           throw new AuthorizationError("Accès refusé : l'utilisateur n'a pas la permission.");
         }
     

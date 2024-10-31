@@ -2,15 +2,15 @@ import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/navbar';
 import Map from '../components/Map/Map';
-import PharmacyList from '../components/PharmacyList/PharmacyList';
 import { useFetchPharmacies } from '../hooks/useFetchPharmacies';
 import { useUserPosition } from '../hooks/useUserPosition';
+import PharmacyCard from '../components/PharmacyList/PharmacyCard';
 
 const HomePage = () => {
   const { pharmacies, isLoading, error } = useFetchPharmacies();
   const { userPosition } = useUserPosition();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
-  const mapRef = useRef(null);  // Référence pour la carte
+  const mapRef = useRef(null);
   const navigate = useNavigate();
 
   const imgUrl = [
@@ -32,16 +32,13 @@ const HomePage = () => {
     navigate(`/pharmacy-details/${pharmacyId}`);
   };
 
-  // Fonction pour recentrer la carte sur une pharmacie
   const handleFlyToPharmacy = (latitude, longitude) => {
     if (mapRef.current) {
-      mapRef.current.flyTo([latitude, longitude], 13); // Repositionne la carte sur les coordonnées de la pharmacie
-    }
-  };
-
-  const handleCenterOnUser = () => {
-    if (userPosition && mapRef.current) {
-      mapRef.current.flyTo(userPosition, 13);
+      mapRef.current.flyTo({
+        center: [longitude, latitude],
+        zoom: 13,
+        essential: true,
+      });
     }
   };
 
@@ -49,30 +46,33 @@ const HomePage = () => {
     <>
       <Navbar />
       <div className="container mx-auto mt-8">
-        <div className="grid grid-cols-3">
-          <div className="col-span-2 p-4">
-            <h2 className="text-left text-3xl font-bold mb-8">Pharmacies Disponibles</h2>
-              <PharmacyList
-                pharmacies={pharmacies}
+        {/* Map Section */}
+        {!isLoading && !error && (
+          <div className="p-4 bg-gray-100 shadow-lg rounded-lg mb-8">
+            <Map
+              userPosition={userPosition}
+              pharmacies={pharmacies}
+              mapRef={mapRef}
+              isMobile={isMobile}
+              handleFlyToPharmacy={handleFlyToPharmacy}
+            />
+          </div>
+        )}
+
+        {/* Pharmacy List Section */}
+        <div className="overflow-x-auto whitespace-nowrap p-4 bg-gray-20 shadow-lg rounded-lg">
+          {/* Affiche toutes les cartes de pharmacie en défilement horizontal */}
+          {!isLoading && pharmacies.length > 0 && pharmacies.map((pharmacy, index) => (
+            <div key={index} className="inline-block mr-4">
+              <PharmacyCard
+                pharmacy={pharmacy}
                 handleViewProducts={handleViewProducts}
-                handleViewDetails= {handleViewDetails}
                 handleFlyToPharmacy={handleFlyToPharmacy}
                 getRandomImageUrl={getRandomImageUrl}
-                isLoading={isLoading} // Passer isLoading à PharmacyList
-              />
-          </div>
-
-          {!isLoading && !error && (
-            <div className="relative">
-              <Map
-                userPosition={userPosition}
-                pharmacies={pharmacies}
-                mapRef={mapRef}
-                isMobile={isMobile}
-                handleCenterOnUser={handleCenterOnUser}
+                handleViewDetails={handleViewDetails}
               />
             </div>
-          )}
+          ))}
         </div>
       </div>
     </>
