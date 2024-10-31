@@ -10,7 +10,7 @@ const HomePage = () => {
   const { pharmacies, isLoading, error } = useFetchPharmacies();
   const { userPosition } = useUserPosition();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
-  const mapRef = useRef(null);  // Référence pour la carte
+  const mapRef = useRef(null);  // Map reference to control map actions
   const navigate = useNavigate();
 
   const imgUrl = [
@@ -32,16 +32,15 @@ const HomePage = () => {
     navigate(`/pharmacy-details/${pharmacyId}`);
   };
 
-  // Fonction pour recentrer la carte sur une pharmacie
+  // Function to fly to the pharmacy location on the map
   const handleFlyToPharmacy = (latitude, longitude) => {
+    console.log("Flying to:", latitude, longitude); // Debugging log
     if (mapRef.current) {
-      mapRef.current.flyTo([latitude, longitude], 13); // Repositionne la carte sur les coordonnées de la pharmacie
-    }
-  };
-
-  const handleCenterOnUser = () => {
-    if (userPosition && mapRef.current) {
-      mapRef.current.flyTo(userPosition, 13);
+      mapRef.current.flyTo({
+        center: [longitude, latitude],
+        zoom: 13,
+        essential: true,
+      });
     }
   };
 
@@ -49,27 +48,27 @@ const HomePage = () => {
     <>
       <Navbar />
       <div className="container mx-auto mt-8">
-        <div className="grid grid-cols-3">
-          <div className="col-span-2 p-4">
+        <div className="grid grid-cols-5">
+          <div className="col-span-3 p-4">
             <h2 className="text-left text-3xl font-bold mb-8">Pharmacies Disponibles</h2>
-              <PharmacyList
-                pharmacies={pharmacies}
-                handleViewProducts={handleViewProducts}
-                handleViewDetails= {handleViewDetails}
-                handleFlyToPharmacy={handleFlyToPharmacy}
-                getRandomImageUrl={getRandomImageUrl}
-                isLoading={isLoading} // Passer isLoading à PharmacyList
-              />
+            <PharmacyList
+              pharmacies={pharmacies}
+              handleViewProducts={handleViewProducts}
+              handleViewDetails={handleViewDetails}
+              handleFlyToPharmacy={handleFlyToPharmacy}
+              getRandomImageUrl={getRandomImageUrl}
+              isLoading={isLoading}
+            />
           </div>
 
           {!isLoading && !error && (
-            <div className="relative">
+            <div className="col-span-2 p-4">
               <Map
                 userPosition={userPosition}
                 pharmacies={pharmacies}
                 mapRef={mapRef}
                 isMobile={isMobile}
-                handleCenterOnUser={handleCenterOnUser}
+                handleFlyToPharmacy={handleFlyToPharmacy}
               />
             </div>
           )}

@@ -6,13 +6,15 @@ export const useUserPosition = () => {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        const { latitude, longitude } = position.coords;
-        setUserPosition([latitude, longitude]);
+        setUserPosition({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
       },
       (error) => {
-        console.error('Erreur lors de la récupération de la position:', error);
-      },
-      { enableHighAccuracy: true }
+        console.error('Error getting user location:', error);
+        setUserPosition(null); // Handle error and set to null
+      }
     );
   }, []);
 
