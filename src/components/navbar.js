@@ -5,6 +5,7 @@ import { Bars3Icon, XMarkIcon, ShoppingCartIcon } from '@heroicons/react/24/outl
 import { UserIcon } from '@heroicons/react/20/solid';
 import { useAuth } from '../hooks/useAuth';
 import { useSearchProducts } from '../hooks/useSearchProducts'; 
+import { useCart } from '../context/cartContext'; // Import the useCart hook
 import { Logo } from '../utils/logo';
 
 const Navbar = () => {
@@ -12,11 +13,15 @@ const Navbar = () => {
   const { query, setQuery, suggestions, isLoading } = useSearchProducts(); 
   const navigate = useNavigate();
   const { user, logout } = useAuth();
+  const { cartItems } = useCart(); // Access cart items from the context
 
   const handleLogout = () => {
     logout();
     navigate('/');
   };
+
+  // Calculate the total number of items in the cart
+  const totalItemsInCart = cartItems.reduce((acc, item) => acc + (item.quantity || 1), 0);
 
   return (
     <header className="shadow-sm">
@@ -58,20 +63,26 @@ const Navbar = () => {
           )}
         </div>
 
-        <div className="hidden lg:flex lg:gap-x-12">
+        <div className="hidden lg:flex lg:gap-x-6 lg:items-center">
           <Link to="/all-products" className="text-sm font-semibold leading-6 text-gray-900">
             Nos produits
           </Link>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2">
             <Link to="/cart" className="flex items-center space-x-2">
               <ShoppingCartIcon className="h-6 w-6 text-gray-900" />
               <span className="text-sm font-semibold leading-6 text-gray-900">Mon Panier</span>
+              {/* Display the total number of items in the cart */}
+              {totalItemsInCart > 0 && (
+                <span className="bg-red-500 text-white rounded-full px-2 text-xs">
+                  {totalItemsInCart}
+                </span>
+              )}
             </Link>
           </div>
 
           {user ? (
-            <>
+            <div className="flex items-center space-x-6">
               <Link to="/orders" className="text-sm font-semibold leading-6 text-gray-900">
                 Mes Commandes
               </Link>
@@ -81,7 +92,7 @@ const Navbar = () => {
               >
                 Logout
               </button>
-            </>
+            </div>
           ) : (
             <Link to="/login" className="text-sm font-semibold leading-6 text-gray-900">
               Login <span aria-hidden="true">&rarr;</span>
@@ -123,6 +134,11 @@ const Navbar = () => {
                 </Link>
                 <Link to="/cart" className="block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
                   Mon Panier
+                  {totalItemsInCart > 0 && (
+                    <span className="bg-red-500 text-white rounded-full px-2 text-xs ml-2">
+                      {totalItemsInCart}
+                    </span>
+                  )}
                 </Link>
                 {user && (
                   <Link to="/orders" className="block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">

@@ -32,7 +32,7 @@ const AllProducts = () => {
             allProducts.map((product, index) => (
               <div
                 key={index}
-                className="bg-white rounded-lg shadow-md p-5 transition-transform transform hover:scale-105"
+                className="bg-white rounded-lg shadow-md p-5"
               >
                 <img
                   src={product.img || 'https://media.istockphoto.com/id/1465073112/fr/photo/capsules-bleues-sur-convoyeur-dans-une-usine-pharmaceutique-moderne-processus-de-fabrication.webp?s=1024x1024&w=is&k=20&c=4UmTp1KXgISND5-pMjhwtOTmE3VCSZ10gQrMbJr9-Uk='}
