@@ -4,11 +4,9 @@ import { useFetchAllProducts } from '../hooks/useFecthProducts';
 import { FaShoppingCart } from 'react-icons/fa';
 import { useCart } from '../context/cartContext';
 
-
 const AllProducts = () => {
   const { allProducts, isLoading, error } = useFetchAllProducts();
   const { addToCart } = useCart(); // Utilisation du hook pour le panier
- 
 
   const handleAddToCart = (product) => {
     addToCart(product); // Ajout direct au panier, sans vérification de connexion
@@ -42,6 +40,9 @@ const AllProducts = () => {
                 <h2 className="text-lg font-bold text-gray-800 mb-2">{product.name}</h2>
                 <p className="text-gray-600 mb-4">{product.description}</p>
                 <p className="text-green-500 font-semibold text-lg mb-4">€{product.price || 'XX'}</p>
+                <p className="text-gray-600 mb-4">
+                  Disponible à la <span className="text-green-500">{product.pharmacy.name}</span>
+                </p>
 
                 <div className="flex items-center mb-4">
                   <label className="text-gray-600 mr-2">Quantité:</label>
@@ -53,6 +54,10 @@ const AllProducts = () => {
                     onChange={(e) => (product.quantity = parseInt(e.target.value))}
                   />
                 </div>
+
+                {product.prescription && (
+                  <p className="text-red-500 text-sm">Requiert une ordonnance</p>
+                )}
 
                 <button
                   onClick={() => handleAddToCart(product, product.quantity || 1)}

@@ -19,7 +19,7 @@ const PharmacyCard = ({ pharmacy, handleViewProducts, getRandomImageUrl, handleF
         <p className="text-gray-600 text-sm">{pharmacy.phone}</p>
 
         <div className="mt-4 flex space-x-2">
-          <button
+          {/* <button
             className="bg-gradient-to-r from-green-400 to-green-600 text-white py-1 px-3 rounded-full text-sm shadow-md"
             onClick={(e) => {
               e.stopPropagation(); // Empêche la propagation de l'événement de clic
@@ -27,7 +27,7 @@ const PharmacyCard = ({ pharmacy, handleViewProducts, getRandomImageUrl, handleF
             }}
           >
             Voir Produits
-          </button>
+          </button> */}
 
           <button
             className="bg-gradient-to-r from-blue-400 to-blue-600 text-white py-1 px-3 rounded-full text-sm shadow-md"

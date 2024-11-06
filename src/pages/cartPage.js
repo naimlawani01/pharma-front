@@ -43,15 +43,18 @@ const CartPage = () => {
                           className="ml-2 w-16 border rounded-md"
                         />
                       </p>
-                      <div className="flex">
-                        <button 
-                          type="button" 
-                          className="font-medium text-indigo-600 hover:text-indigo-500"
-                          onClick={() => removeFromCart(item._id)} // Remove only this item
-                        >
-                          Supprimer
-                        </button>
-                      </div>
+                      <div className="flex flex-col">
+                      {item.prescription && (
+                        <p className="text-red-500 text-sm mb-1">Requiert une ordonnance</p>
+                      )}
+                      <button 
+                        type="button" 
+                        className="font-medium text-indigo-600 hover:text-indigo-500"
+                        onClick={() => removeFromCart(item._id)} // Remove only this item
+                      >
+                        Supprimer
+                      </button>
+                    </div>
                     </div>
                   </div>
                 </li>
@@ -80,7 +83,7 @@ const CartPage = () => {
             <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
               <p>
                 ou{' '}
-                <a href="/products" className="font-medium text-indigo-600 hover:text-indigo-500">
+                <a href="all-products" className="font-medium text-indigo-600 hover:text-indigo-500">
                   Continuer vos achats
                 </a>
               </p>
