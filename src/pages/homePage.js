@@ -28,9 +28,9 @@ const HomePage = () => {
     navigate(`/list-product/${pharmacyId}`);
   };
 
-  const handleViewDetails = (pharmacyId) => {
-    navigate(`/pharmacy-details/${pharmacyId}`);
-  };
+  // const handleViewDetails = (pharmacyId) => {
+  //   navigate(`/pharmacy-details/${pharmacyId}`);
+  // };
 
   const handleFlyToPharmacy = (latitude, longitude) => {
     if (mapRef.current) {
@@ -69,7 +69,7 @@ const HomePage = () => {
                 handleViewProducts={handleViewProducts}
                 handleFlyToPharmacy={handleFlyToPharmacy}
                 getRandomImageUrl={getRandomImageUrl}
-                handleViewDetails={handleViewDetails}
+                // handleViewDetails={handleViewDetails}
               />
             </div>
           ))}

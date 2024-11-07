@@ -7,6 +7,7 @@ import AllProducts from '../pages/allProductsPage';
 import ProductDetailPage from '../pages/productDetailPage';
 import CartPage from '../pages/cartPage'
 import PharmacyDetails from '../pages/detailsPharmacyPage';
+import SignupPage from '../pages/registerPage';
 
 
 const AppRoutes = ()=> {
@@ -15,6 +16,7 @@ const AppRoutes = ()=> {
       <Routes>
         {/* Route publique pour la page de login */}
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<SignupPage />} />
         <Route path="/" element={<HomePage />} />
         <Route path = "/list-product/:id" element ={<ProductsInPharmacie />} />
         <Route path = "/all-products" element={<AllProducts/>} />

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 
 const LoginPage = () => {
   const { login, error } = useAuth();
@@ -86,6 +88,15 @@ const LoginPage = () => {
               </button>
             </div>
           </form>
+          <div className="mt-4">
+            <p>
+              Vous n'avez pas de compte ?{' '}
+              <Link to="/register" className="text-blue-500 hover:underline">
+                Inscrivez-vous
+              </Link>
+            </p>
+          </div>
+          
         </div>
       </div>
 
