@@ -8,6 +8,7 @@ import ProductDetailPage from '../pages/productDetailPage';
 import CartPage from '../pages/cartPage'
 import PharmacyDetails from '../pages/detailsPharmacyPage';
 import SignupPage from '../pages/registerPage';
+import UserOrders from '../pages/UserOrders';
 
 
 const AppRoutes = ()=> {
@@ -24,6 +25,7 @@ const AppRoutes = ()=> {
         <Route path = "/cart" element={<CartPage/>} />
         <Route path="/product/:productId" element={<ProductDetailPage />} />
         <Route path="/pharmacy-details/:pharmacyId" element={<PharmacyDetails />} />
+        <Route path="/orders" element={<UserOrders />} />
       </Routes>
 
 );

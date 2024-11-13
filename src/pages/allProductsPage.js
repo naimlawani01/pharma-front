@@ -62,6 +62,9 @@ const AllProducts = () => {
                 <p className="text-green-500 font-semibold text-lg mb-4">
                   €{product.price || 'XX'}
                 </p>
+                <p className="text-gray-600 mb-4">
+                  Disponible à la <span className="text-green-500">{product.pharmacy.name}</span>
+                </p>
 
                 <div className="flex items-center mb-4">
                   <label className="text-gray-600 mr-2">Quantité:</label>

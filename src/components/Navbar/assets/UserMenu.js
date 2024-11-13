@@ -4,7 +4,7 @@ import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { UserIcon } from '@heroicons/react/20/solid';
 
 const UserMenu = ({ user, handleLogout, totalItemsInCart, navigate }) => (
-  <div className="hidden lg:flex lg:gap-x-6 lg:items-center">
+  <div className={`hidden lg:flex lg:gap-x-6 lg:items-center ${user ? 'ml-6' : ''}`}>
     <Link to="/all-products" className="text-sm font-semibold leading-6 text-gray-900">
       Nos produits
     </Link>
