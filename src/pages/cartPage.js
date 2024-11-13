@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useCart } from '../context/cartContext';
 import Navbar from '../components/navbar'; // Import de la Navbar
+import PaymentModal from '../components/paymentPage';
 
 const CartPage = () => {
   const { cartItems, removeFromCart, updateCartItem, getTotalPrice } = useCart(); // Use the context
-
   const totalAmount = getTotalPrice(); // Get total amount from the context
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false); // État pour la modal
 
   return (
-    <div>
+    <>
       {/* Navbar */}
       <Navbar /> 
 
@@ -44,17 +45,17 @@ const CartPage = () => {
                         />
                       </p>
                       <div className="flex flex-col">
-                      {item.prescription && (
-                        <p className="text-red-500 text-sm mb-1">Requiert une ordonnance</p>
-                      )}
-                      <button 
-                        type="button" 
-                        className="font-medium text-indigo-600 hover:text-indigo-500"
-                        onClick={() => removeFromCart(item._id)} // Remove only this item
-                      >
-                        Supprimer
-                      </button>
-                    </div>
+                        {item.prescription && (
+                          <p className="text-red-500 text-sm mb-1">Requiert une ordonnance</p>
+                        )}
+                        <button 
+                          type="button" 
+                          className="font-medium text-indigo-600 hover:text-indigo-500"
+                          onClick={() => removeFromCart(item._id)} // Remove only this item
+                        >
+                          Supprimer
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </li>
@@ -72,14 +73,15 @@ const CartPage = () => {
               <p>Prix Total</p>
               <p>{totalAmount.toFixed(2)}€</p>
             </div>
-            <div className="mt-6">
-              <a
-                href="#"
+            <div className="mt-6 flex justify-center">
+              <button
+                onClick={() => setIsPaymentModalOpen(true)}
                 className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
               >
                 Valider la commande
-              </a>
+              </button>
             </div>
+
             <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
               <p>
                 ou{' '}
@@ -91,7 +93,10 @@ const CartPage = () => {
           </div>
         )}
       </div>
-    </div>
+      
+      {/* Modal de paiement */}
+      <PaymentModal isOpen={isPaymentModalOpen} onClose={() => setIsPaymentModalOpen(false)} />
+    </>
   );
 };
 
