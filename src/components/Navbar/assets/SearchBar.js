@@ -1,4 +1,3 @@
-// src/components/Navbar/assets/SearchBar.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,7 +12,10 @@ const SearchBar = ({ query, setQuery, suggestions, isLoading }) => {
   };
 
   return (
-    <form onSubmit={handleSearch} className="hidden lg:flex lg:flex-1 lg:justify-center relative">
+    <form
+      onSubmit={handleSearch}
+      className="flex lg:flex-1 lg:justify-center relative"
+    >
       <input
         type="text"
         placeholder="Search..."
