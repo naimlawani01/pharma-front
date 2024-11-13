@@ -9,7 +9,7 @@ export const Logo = () => {
       className="flex items-center cursor-pointer font-poppins text-black"
     >
       <span className="ml-2 text-2xl font-normal text-[#10A760]">Pharma</span>
-      <span className="text-2xl font-bold text-black">Plus</span>
+      <span className="text-2xl font-bold text-black">+</span>
     </div>
   );
 };

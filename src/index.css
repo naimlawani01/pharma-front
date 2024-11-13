@@ -16,3 +16,22 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Add this CSS in your main stylesheet */
+.mapboxgl-ctrl {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  transition: transform 0.2s;
+}
+
+.mapboxgl-ctrl:hover {
+  transform: scale(1.05);
+}
+
+
+.pharmacy-card {
+  margin: 10px; /* Espacement entre les cartes */
+  width: 200px; /* Largeur fixe pour chaque carte */
+}
