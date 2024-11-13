@@ -1,4 +1,3 @@
-// pages/UserOrders.js
 import React from 'react';
 import Navbar from '../components/navbar';
 import { useFetchOrders } from '../hooks/useFetchOrders';
@@ -17,14 +16,38 @@ const UserOrders = () => {
         {orders.length > 0 ? (
           orders.map((order) => (
             <div key={order._id} className="bg-gray-100 p-4 my-4 rounded">
-              <h2>Commande #{order._id}</h2>
-              <p>Date: {new Date(order.date).toLocaleDateString()}</p>
-              <p>Total: €{order.totalPrice}</p>
-              <ul>
-                {order.items.map((item, idx) => (
-                  <li key={idx}>{item.name} - {item.quantity} x €{item.price}</li>
+              <h2 className="text-xl font-semibold">Commande #{order._id}</h2>
+              <p>Date: {new Date(order.created_at).toLocaleDateString()}</p>
+              <p>Adresse de facturation : {order.billing_address}</p>
+              <p>Adresse de livraison : {order.shipping_address}</p>
+              
+              <ul className="mt-4">
+                {order.order_lines.map((line) => (
+                  <li key={line.id} className="mb-2">
+                    <div className="flex items-center">
+                      <img
+                        src={line.product_id.img}
+                        alt={line.product_id.name}
+                        className="w-16 h-16 mr-4"
+                      />
+                      <div>
+                        <p className="font-medium">{line.product_id.name}</p>
+                        <p className="text-gray-600">
+                          {line.quantity} x €{line.product_id.price}
+                        </p>
+                      </div>
+                    </div>
+                  </li>
                 ))}
               </ul>
+
+              <p className="font-bold mt-4">
+                Total: €
+                {order.order_lines.reduce(
+                  (total, line) => total + line.quantity * line.product_id.price,
+                  0
+                )}
+              </p>
             </div>
           ))
         ) : (
