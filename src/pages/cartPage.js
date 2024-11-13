@@ -1,26 +1,28 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom'; // Utilisez Link pour la navigation
 import { useCart } from '../context/cartContext';
 import Navbar from '../components/navbar'; // Import de la Navbar
-import PaymentModal from '../components/paymentPage';
 
 const CartPage = () => {
-  const { cartItems, removeFromCart, updateCartItem, getTotalPrice } = useCart(); // Use the context
-  const totalAmount = getTotalPrice(); // Get total amount from the context
-  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false); // État pour la modal
+  const { cartItems, removeFromCart, updateCartItem, getTotalPrice } = useCart(); // Utilise le contexte pour obtenir les éléments du panier
+  const totalAmount = getTotalPrice(); // Calcule le montant total
+  const navigate = useNavigate(); // Initialisez useNavigate pour rediriger l'utilisateur
+
+  // Fonction pour gérer le clic sur le bouton "Valider la commande"
+  const handleConfirmOrder = () => {
+    navigate('/payment'); // Redirige vers la page de livraison
+  };
 
   return (
     <>
-      {/* Navbar */}
-      <Navbar /> 
-
-      {/* Cart page content */}
+      <Navbar /> {/* Affiche la Navbar */}
       <div className="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-md mt-6">
         <h1 className="text-2xl font-bold mb-4 text-gray-900">Mon Panier</h1>
         <div className="flow-root">
           <ul role="list" className="-my-6 divide-y divide-gray-200">
             {cartItems.length > 0 ? (
               cartItems.map((item) => (
-                <li key={item._id} className="flex py-6"> {/* Use item._id as the key */}
+                <li key={item._id} className="flex py-6">
                   <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                     <img
                       alt={item.name}
@@ -35,7 +37,8 @@ const CartPage = () => {
                     </div>
                     <p className="mt-1 text-sm text-gray-500">{item.description}</p>
                     <div className="flex flex-1 items-end justify-between text-sm">
-                      <p className="text-gray-500">Quantité 
+                      <p className="text-gray-500">
+                        Quantité 
                         <input 
                           type="number" 
                           value={item.quantity} 
@@ -51,7 +54,7 @@ const CartPage = () => {
                         <button 
                           type="button" 
                           className="font-medium text-indigo-600 hover:text-indigo-500"
-                          onClick={() => removeFromCart(item._id)} // Remove only this item
+                          onClick={() => removeFromCart(item._id)}
                         >
                           Supprimer
                         </button>
@@ -66,7 +69,7 @@ const CartPage = () => {
           </ul>
         </div>
 
-        {/* Total and buttons */}
+        {/* Total et boutons */}
         {cartItems.length > 0 && (
           <div className="border-t border-gray-200 mt-6 pt-4">
             <div className="flex justify-between text-base font-medium text-gray-900">
@@ -75,7 +78,7 @@ const CartPage = () => {
             </div>
             <div className="mt-6 flex justify-center">
               <button
-                onClick={() => setIsPaymentModalOpen(true)}
+                onClick={handleConfirmOrder} // Remplace l'ouverture de modal par la redirection
                 className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
               >
                 Valider la commande
@@ -85,17 +88,14 @@ const CartPage = () => {
             <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
               <p>
                 ou{' '}
-                <a href="all-products" className="font-medium text-indigo-600 hover:text-indigo-500">
+                <Link to="/all-products" className="font-medium text-indigo-600 hover:text-indigo-500">
                   Continuer vos achats
-                </a>
+                </Link>
               </p>
             </div>
           </div>
         )}
       </div>
-      
-      {/* Modal de paiement */}
-      <PaymentModal isOpen={isPaymentModalOpen} onClose={() => setIsPaymentModalOpen(false)} />
     </>
   );
 };

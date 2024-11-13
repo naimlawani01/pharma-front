@@ -9,6 +9,7 @@ import CartPage from '../pages/cartPage'
 import PharmacyDetails from '../pages/detailsPharmacyPage';
 import SignupPage from '../pages/registerPage';
 import UserOrders from '../pages/UserOrders';
+import PaymentPage from '../pages/paymentPage';
 
 
 const AppRoutes = ()=> {
@@ -26,6 +27,7 @@ const AppRoutes = ()=> {
         <Route path="/product/:productId" element={<ProductDetailPage />} />
         <Route path="/pharmacy-details/:pharmacyId" element={<PharmacyDetails />} />
         <Route path="/orders" element={<UserOrders />} />
+        <Route path="/payment" element={<PaymentPage />} />
       </Routes>
 
 );
