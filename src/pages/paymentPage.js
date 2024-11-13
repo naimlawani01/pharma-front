@@ -24,9 +24,9 @@ const PaymentPage = () => {
         return;
       }
     }
-
+    console.log(cartItems)
     const products = cartItems.map((item) => ({
-      product_id: item.product_id,
+      product_id: item._id,
       quantity: item.quantity,
     }));
 
@@ -35,7 +35,7 @@ const PaymentPage = () => {
       billing_address: "string", 
       shipping_address: shippingAddress,
     };
-
+    console.log(orderData)
     try {
       // Soumettre la commande
        await api.post('/orders', orderData, {
