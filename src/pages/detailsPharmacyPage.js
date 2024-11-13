@@ -38,14 +38,14 @@ const PharmacyDetails = () => {
             <p className="text-gray-700 mb-2">Téléphone: {pharmacy.phone}</p>
             <p className="text-gray-700 mb-2">Email: {pharmacy.email}</p>
             
-            {/* Vérifie si la localisation existe avant d'accéder aux valeurs latitude et longitude */}
+            {/* Vérifie si la localisation existe avant d'accéder aux valeurs latitude et longitude
             {pharmacy.localisation ? (
               <p className="text-gray-700 mb-2">
                 Localisation: {pharmacy.localisation.latitude}, {pharmacy.localisation.longitude}
               </p>
             ) : (
               <p className="text-gray-700 mb-2">Localisation non disponible</p>
-            )}
+            )} */}
           </>
         ) : (
           <p>Aucune information disponible pour cette pharmacie.</p>

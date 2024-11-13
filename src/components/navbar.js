@@ -63,7 +63,7 @@ const Navbar = () => {
           )}
         </div>
 
-        <div className="hidden lg:flex lg:gap-x-6 lg:items-center">
+        <div className={`hidden lg:flex lg:gap-x-6 lg:items-center ${user ? 'ml-6' : ''}`}>
           <Link to="/all-products" className="text-sm font-semibold leading-6 text-gray-900">
             Nos produits
           </Link>
