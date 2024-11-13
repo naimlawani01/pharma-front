@@ -30,7 +30,7 @@ const Navbar = () => {
   return (
     <header className="shadow-sm">
       <div className="bg-green-900 h-8 flex items-center justify-center">
-        <p className="text-white text-xs">Livraison gratuite dès 50€ d'achat !</p>
+        <p className="text-white text-xs"></p>
       </div>
 
       <nav className="bg-white mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
