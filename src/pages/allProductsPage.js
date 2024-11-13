@@ -74,6 +74,10 @@ const AllProducts = () => {
                   />
                 </div>
 
+                {product.prescription && (
+                  <p className="text-red-500 text-sm">Requiert une ordonnance</p>
+                )}
+
                 <button
                   onClick={() => handleAddToCart(product)}
                   className="flex items-center justify-center w-full bg-indigo-600 text-white font-bold py-2 rounded hover:bg-indigo-700"
