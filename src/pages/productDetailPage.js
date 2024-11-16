@@ -25,7 +25,7 @@ const ProductDetailPage = () => {
           />
           
           <p className="text-gray-700 mb-4 mt-6">{product.description}</p>
-          <p className="text-lg  mb-2"><span className='font-semibold'>Prix :</span>  {product.price} €</p> 
+          <p className="text-lg  mb-2"><span className='font-semibold'>Prix :</span>  {product.price} GNF</p> 
           {/* <p className="text-gray-500">Disponible à la pharmacie : {product.pharmacy.name}</p> */}
         </div>
       )}

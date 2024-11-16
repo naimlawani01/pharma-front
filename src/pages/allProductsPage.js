@@ -60,7 +60,7 @@ const AllProducts = () => {
                 <h2 className="text-lg font-bold text-gray-800 mb-2">{product.name}</h2>
                 <p className="text-gray-600 mb-4">{product.description}</p>
                 <p className="text-green-500 font-semibold text-lg mb-4">
-                  €{product.price || 'XX'}
+                  GNF {product.price || 'XX'}
                 </p>
                 <p className="text-gray-600 mb-4">
                   Disponible à la <span className="text-green-500">{product.pharmacy.name}</span>
