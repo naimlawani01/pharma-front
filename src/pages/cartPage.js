@@ -33,7 +33,7 @@ const CartPage = () => {
                   <div className="ml-4 flex flex-1 flex-col">
                     <div className="flex justify-between text-base font-medium text-gray-900">
                       <h3>{item.name}</h3>
-                      <p className="ml-4">{item.price.toFixed(2)}€</p>
+                      <p className="ml-4">{item.price.toFixed(2)}GNF</p>
                     </div>
                     <p className="mt-1 text-sm text-gray-500">{item.description}</p>
                     <div className="flex flex-1 items-end justify-between text-sm">
@@ -74,7 +74,7 @@ const CartPage = () => {
           <div className="border-t border-gray-200 mt-6 pt-4">
             <div className="flex justify-between text-base font-medium text-gray-900">
               <p>Prix Total</p>
-              <p>{totalAmount.toFixed(2)}€</p>
+              <p>{totalAmount.toFixed(2)}GNF</p>
             </div>
             <div className="mt-6 flex justify-center">
               <button
