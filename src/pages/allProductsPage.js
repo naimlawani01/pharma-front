@@ -9,7 +9,8 @@ const AllProducts = () => {
   const { allProducts, isLoading, error } = useFetchAllProducts();
   const { addToCart } = useCart();
   const [filteredProducts, setFilteredProducts] = useState([]);
-  
+  const [productConfirmation, setProductConfirmation] = useState({}); // État pour suivre les notifications des produits
+
   // Récupérer le paramètre de recherche depuis l'URL
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get('q') || '';
@@ -28,6 +29,20 @@ const AllProducts = () => {
 
   const handleAddToCart = (product) => {
     addToCart(product);
+
+    // Définir la notification pour le produit spécifique
+    setProductConfirmation((prev) => ({
+      ...prev,
+      [product.name]: true,
+    }));
+
+    // Réinitialiser la notification après 3 secondes
+    setTimeout(() => {
+      setProductConfirmation((prev) => ({
+        ...prev,
+        [product.name]: false,
+      }));
+    }, 3000);
   };
 
   if (isLoading) {
@@ -48,7 +63,7 @@ const AllProducts = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-md p-5">
+              <div key={index} className="bg-white rounded-lg shadow-md p-5 relative">
                 <img
                   src={
                     product.img ||
@@ -88,11 +103,20 @@ const AllProducts = () => {
                   <FaShoppingCart className="mr-2" />
                   Ajouter au panier
                 </button>
+
+                {/* Notification locale au produit */}
+                {productConfirmation[product.name] && (
+                  <div className="absolute top-2 right-2 bg-green-100 border border-green-400 text-green-700 px-3 py-1 rounded text-sm">
+                    Produit ajouté au panier !
+                  </div>
+                )}
               </div>
             ))
           ) : (
             <p className="text-center text-gray-500">
-              {searchQuery ? 'Aucun produit ne correspond à votre recherche.' : 'Aucun produit disponible pour le moment.'}
+              {searchQuery
+                ? 'Aucun produit ne correspond à votre recherche.'
+                : 'Aucun produit disponible pour le moment.'}
             </p>
           )}
         </div>
