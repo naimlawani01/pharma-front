@@ -75,7 +75,7 @@ const AllProducts = () => {
                 <h2 className="text-lg font-bold text-gray-800 mb-2">{product.name}</h2>
                 <p className="text-gray-600 mb-4">{product.description}</p>
                 <p className="text-green-500 font-semibold text-lg mb-4">
-                  GNF {product.price || 'XX'}
+                   {product.price || 'XX'} GNF
                 </p>
                 <p className="text-gray-600 mb-4">
                   Disponible à la <span className="text-green-500">{product.pharmacy.name}</span>
@@ -107,7 +107,7 @@ const AllProducts = () => {
                 {/* Notification locale au produit */}
                 {productConfirmation[product.name] && (
                   <div className="absolute top-2 right-2 bg-green-100 border border-green-400 text-green-700 px-3 py-1 rounded text-sm">
-                    Produit ajouté au panier !
+                    Produit ajouté au panier avec succès !
                   </div>
                 )}
               </div>
