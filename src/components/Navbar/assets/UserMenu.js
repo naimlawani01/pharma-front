@@ -25,7 +25,7 @@ const UserMenu = ({ user, handleLogout, totalItemsInCart, navigate }) => (
           Mes Commandes
         </Link>
         <button onClick={handleLogout} className="text-sm font-semibold leading-6 text-gray-900">
-          Logout
+          Se deconnecter
         </button>
         <UserIcon
           onClick={() => navigate('/profile')}
@@ -34,7 +34,7 @@ const UserMenu = ({ user, handleLogout, totalItemsInCart, navigate }) => (
       </>
     ) : (
       <Link to="/login" className="text-sm font-semibold leading-6 text-gray-900">
-        Login <span aria-hidden="true">&rarr;</span>
+        Se connecter <span aria-hidden="true">&rarr;</span>
       </Link>
     )}
   </div>
