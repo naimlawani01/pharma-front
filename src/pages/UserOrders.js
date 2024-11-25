@@ -33,7 +33,7 @@ const UserOrders = () => {
                       <div>
                         <p className="font-medium">{line.product_id.name}</p>
                         <p className="text-gray-600">
-                          {line.quantity} x €{line.product_id.price}
+                          {line.quantity} x {line.product_id.price} GNF
                         </p>
                       </div>
                     </div>
@@ -42,11 +42,11 @@ const UserOrders = () => {
               </ul>
 
               <p className="font-bold mt-4">
-                Total: €
+                Total: 
                 {order.order_lines.reduce(
                   (total, line) => total + line.quantity * line.product_id.price,
                   0
-                )}
+                )} GNF
               </p>
             </div>
           ))
